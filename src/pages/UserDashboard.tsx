@@ -125,6 +125,198 @@ const UserDashboard = () => {
             </div>
           </div>
         );
+
+      case "orders":
+        return (
+          <div className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-bold">My Orders</h2>
+              <Button variant="outline">Filter Orders</Button>
+            </div>
+            {[1, 2, 3, 4].map((order) => (
+              <Card key={order}>
+                <CardContent className="p-6">
+                  <div className="flex justify-between items-start mb-4">
+                    <div>
+                      <h3 className="font-semibold">Order #PM{order}00{order}</h3>
+                      <p className="text-sm text-muted-foreground">Placed on Dec {order + 10}, 2024</p>
+                    </div>
+                    <Badge variant={order % 2 === 0 ? "default" : "secondary"}>
+                      {order % 2 === 0 ? "Delivered" : "Processing"}
+                    </Badge>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-4">
+                      <img src="/placeholder.svg" alt="Product" className="w-16 h-16 rounded-lg" />
+                      <div className="flex-1">
+                        <p className="font-medium">Premium Wireless Headphones</p>
+                        <p className="text-sm text-muted-foreground">Qty: 1</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-semibold">₦{45000 + order * 5000}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex gap-2 mt-4">
+                    <Button size="sm" variant="outline">Track Order</Button>
+                    <Button size="sm" variant="outline">View Details</Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        );
+
+      case "cart":
+        return (
+          <div className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-bold">Shopping Cart</h2>
+              <Button variant="outline">Clear Cart</Button>
+            </div>
+            {[1, 2, 3].map((item) => (
+              <Card key={item}>
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-4">
+                    <img src="/placeholder.svg" alt="Product" className="w-20 h-20 rounded-lg" />
+                    <div className="flex-1">
+                      <h3 className="font-semibold">Smart Fitness Watch {item}</h3>
+                      <p className="text-sm text-muted-foreground">by FitLife Store</p>
+                      <p className="text-lg font-bold text-primary">₦{35000 + item * 3000}</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Button size="sm" variant="outline">-</Button>
+                      <span className="px-3 py-1 bg-muted rounded">{item}</span>
+                      <Button size="sm" variant="outline">+</Button>
+                    </div>
+                    <Button size="sm" variant="destructive">Remove</Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+            <Card>
+              <CardContent className="p-6">
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <span>Subtotal:</span>
+                    <span>₦113,000</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Shipping:</span>
+                    <span>₦2,000</span>
+                  </div>
+                  <div className="flex justify-between font-bold text-lg">
+                    <span>Total:</span>
+                    <span>₦115,000</span>
+                  </div>
+                </div>
+                <Button className="w-full mt-4" size="lg">Proceed to Checkout</Button>
+              </CardContent>
+            </Card>
+          </div>
+        );
+
+      case "wishlist":
+        return (
+          <div className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-bold">My Wishlist</h2>
+              <Button variant="outline">Clear Wishlist</Button>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3, 4, 5, 6].map((item) => (
+                <Card key={item}>
+                  <CardContent className="p-4">
+                    <img src="/placeholder.svg" alt="Product" className="w-full h-48 object-cover rounded-lg mb-4" />
+                    <h3 className="font-semibold mb-2">Designer Backpack {item}</h3>
+                    <p className="text-sm text-muted-foreground mb-2">by Fashion Hub</p>
+                    <p className="text-lg font-bold text-primary mb-4">₦{25000 + item * 2000}</p>
+                    <div className="flex gap-2">
+                      <Button size="sm" className="flex-1">Add to Cart</Button>
+                      <Button size="sm" variant="outline">Remove</Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        );
+
+      case "wallet":
+        return (
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Wallet Balance</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-4xl font-bold text-primary mb-4">₦25,000.00</div>
+                <div className="flex gap-4">
+                  <Button>Top Up Wallet</Button>
+                  <Button variant="outline">Withdraw Funds</Button>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Recent Wallet Activity</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {[
+                    { type: "Credit", amount: "+₦10,000", desc: "Wallet Top-up", date: "Dec 15, 2024" },
+                    { type: "Debit", amount: "-₦45,000", desc: "Order Payment #PM1001", date: "Dec 14, 2024" },
+                    { type: "Credit", amount: "+₦5,000", desc: "Refund #PM1000", date: "Dec 13, 2024" },
+                    { type: "Credit", amount: "+₦20,000", desc: "Wallet Top-up", date: "Dec 12, 2024" },
+                  ].map((transaction, index) => (
+                    <div key={index} className="flex justify-between items-center p-3 bg-muted rounded-lg">
+                      <div>
+                        <p className="font-medium">{transaction.desc}</p>
+                        <p className="text-sm text-muted-foreground">{transaction.date}</p>
+                      </div>
+                      <Badge variant={transaction.type === "Credit" ? "default" : "secondary"}>
+                        {transaction.amount}
+                      </Badge>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        );
+
+      case "transactions":
+        return (
+          <div className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-bold">Transaction History</h2>
+              <Button variant="outline">Export</Button>
+            </div>
+            {[
+              { id: "TXN001", type: "Order Payment", amount: "₦45,000", status: "Completed", date: "Dec 15, 2024" },
+              { id: "TXN002", type: "Wallet Top-up", amount: "₦20,000", status: "Completed", date: "Dec 14, 2024" },
+              { id: "TXN003", type: "Refund", amount: "₦5,000", status: "Processed", date: "Dec 13, 2024" },
+              { id: "TXN004", type: "Order Payment", amount: "₦35,000", status: "Completed", date: "Dec 12, 2024" },
+            ].map((transaction) => (
+              <Card key={transaction.id}>
+                <CardContent className="p-6">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h3 className="font-semibold">{transaction.type}</h3>
+                      <p className="text-sm text-muted-foreground">Transaction ID: {transaction.id}</p>
+                      <p className="text-sm text-muted-foreground">{transaction.date}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-lg font-bold">{transaction.amount}</p>
+                      <Badge variant="default">{transaction.status}</Badge>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        );
       
       default:
         return (
